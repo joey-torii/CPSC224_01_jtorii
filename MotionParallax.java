@@ -9,6 +9,7 @@ import java.awt.event.*;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.PopupMenu;
+import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -17,6 +18,7 @@ public class MotionParallax extends JFrame{
     
     static int WIDTH = 500;
     static int HEIGHT = 500;
+    
     
     public MotionParallax()
     {
@@ -44,7 +46,17 @@ public class MotionParallax extends JFrame{
 
        private int dx = 2;		// increment amount (x coord)
        private int dy = 2;		// increment amount (y coord)
+       
+       private int currentX = 0;
+       private int currentY = 0;
+       
+       Random rand = new Random();
+       Color color1 = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+       Color color2 = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+       Color color3, color4;
 
+       
+   
        public BallPanel()
        {
             timer = new Timer(delay, this);
@@ -88,20 +100,28 @@ public class MotionParallax extends JFrame{
             int sValues[] = {140, 160, 180, 180, 160, 140};
             int tValues[] = {115, 118, 115, 119, 123, 118};
 
-
+            // creates the sun
             g.setColor(Color.yellow);
             //g.fillOval(300, 50, radius*4, radius*4);
             g.fillOval(x - radius, y - radius, radius*4, radius*4);
 
-            g.setColor(Color.green);
+            // creates the moon
+            g.setColor(Color.white);
+            g.fillOval(350, 50, radius*4, radius*4);
+            
+            // creates the grass
+            g.setColor(color3);
             g.fillRect(0, 375, 500, 125);
 
-            g.setColor(Color.blue);
+            // creates a mountain
+            g.setColor(color1);
             g.fillPolygon(aValues, bValues, 3);
 
-            g.setColor(Color.cyan);
+            // creates another mountain
+            g.setColor(color2);
             g.fillPolygon(xValues, yValues, 3);
 
+            // creates the birds           
             g.setColor(Color.black);
             g.fillPolygon(oValues, pValues, 6);
             g.fillPolygon(sValues, tValues, 6);
@@ -115,22 +135,33 @@ public class MotionParallax extends JFrame{
             {
                setBackground(Color.GRAY);
                repaint();
+               
             }        
             public void mouseClicked(MouseEvent e)
             {
-                setBackground(Color.GRAY);
+                color1 = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+                color2 = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
+                repaint();
+              
             }
             public void mouseReleased(MouseEvent e)
             {
+                setBackground(Color.ORANGE);
                 repaint();
             }
             public void mouseEntered(MouseEvent e)
             {
-
+                currentX = e.getX();
+                currentY = e.getY();
+                
+                color3 = new Color(102,178,255);
+                repaint();         
+                    
             }
             public void mouseExited(MouseEvent e)
             {
-
+                color4 = new Color(102,255,102);
+                repaint();
             }
         }
     }
