@@ -44,6 +44,11 @@ public class MotionParallax extends JFrame{
        private int y = 50;		// y position
        private int radius = 15;	// ball radius
 
+       private int car1StartX = 0;
+       private int car1StartY = 381;
+       private int car2StartX = 0;
+       private int car2StartY = 378;
+       
        private int dx = 2;		// increment amount (x coord)
        private int dy = 2;		// increment amount (y coord)
        
@@ -55,14 +60,13 @@ public class MotionParallax extends JFrame{
        Color color2 = new Color(rand.nextInt(255),rand.nextInt(255),rand.nextInt(255));
        Color color3, color4;
 
-       
-   
        public BallPanel()
        {
             timer = new Timer(delay, this);
             timer.start();		// start the timer
             
             addMouseListener(new MyMouseListener());
+            addMouseMotionListener(new MyMouseMotionListener());
        }
 
        public void actionPerformed(ActionEvent e)
@@ -93,6 +97,31 @@ public class MotionParallax extends JFrame{
             x += dx;
             y += dy;
             //g.fillOval(x - radius, y - radius, radius*2, radius*2);
+            
+            
+            int car1x[] = {car1StartX, car1StartX + 10, car1StartX + 12, car1StartX + 17, car1StartX + 19, car1StartX + 29, car1StartX + 29, car1StartX};
+            int car1y[] = {car1StartY, car1StartY, car1StartY - 8, car1StartY - 8, car1StartY, car1StartY, car1StartY + 6, car1StartY + 6};
+            
+            int car2x[] = {500 - car2StartX, 495 - car2StartX, 493 - car2StartX, 493 - car2StartX, 492 - car2StartX, 487 - car2StartX, 487 - car2StartX, 500 - car2StartX};
+            int car2y[] = {car2StartY, car2StartY, car2StartY - 4, car2StartY - 4, car2StartY, car2StartY, car2StartY + 3, car2StartY + 3};
+            
+            if (car1StartX < 500)
+            {
+                car1StartX += (dx*4);
+            }
+            else
+            {
+                car1StartX = 0;
+            }
+            
+            if(car2StartX < 500)
+            {
+                car2StartX += (dx*2);
+            }
+            else
+            {
+                car2StartX = 0;
+            }
 
             int oValues[] = {100, 120, 140, 140, 120, 100};
             int pValues[] = {100, 103, 100, 104, 108, 103};
@@ -112,6 +141,8 @@ public class MotionParallax extends JFrame{
             // creates the grass
             g.setColor(Color.green);
             g.fillRect(0, 375, 500, 125);
+           
+            
 
             // creates a mountain
             g.setColor(color1);
@@ -125,6 +156,9 @@ public class MotionParallax extends JFrame{
             g.setColor(Color.black);
             g.fillPolygon(oValues, pValues, 6);
             g.fillPolygon(sValues, tValues, 6);
+            
+            g.fillPolygon(car1x, car1y, 8);
+            g.fillPolygon(car2x, car2y, 8);
 
        }
        
@@ -134,8 +168,7 @@ public class MotionParallax extends JFrame{
             public void mousePressed(MouseEvent e)
             {
                setBackground(Color.GRAY);
-               repaint();
-               
+               repaint();              
             }        
             public void mouseClicked(MouseEvent e)
             {
@@ -161,6 +194,18 @@ public class MotionParallax extends JFrame{
                 repaint();
             }
         }
+       
+       private class MyMouseMotionListener implements MouseMotionListener
+       {
+           public void mouseDragged(MouseEvent e)
+           {
+               
+           }
+           public void mouseMoved(MouseEvent e)
+           {
+               
+           }
+       }
     }
 
     public static void main(String[] args) {
