@@ -30,7 +30,7 @@ public class MotionParallax extends JFrame{
         BallPanel panel = new BallPanel();
         
         add(panel);
-        panel.setBackground(Color.ORANGE);
+        panel.setBackground(Color.WHITE);
                 
         setVisible(true);
     }
@@ -110,7 +110,7 @@ public class MotionParallax extends JFrame{
             g.fillOval(350, 50, radius*4, radius*4);
             
             // creates the grass
-            g.setColor(color3);
+            g.setColor(Color.green);
             g.fillRect(0, 375, 500, 125);
 
             // creates a mountain
@@ -151,16 +151,13 @@ public class MotionParallax extends JFrame{
             }
             public void mouseEntered(MouseEvent e)
             {
-                currentX = e.getX();
-                currentY = e.getY();
-                
-                color3 = new Color(102,178,255);
+                setBackground(Color.cyan);
                 repaint();         
                     
             }
             public void mouseExited(MouseEvent e)
             {
-                color4 = new Color(102,255,102);
+                setBackground(Color.blue);
                 repaint();
             }
         }
