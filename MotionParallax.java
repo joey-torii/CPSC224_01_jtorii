@@ -1,7 +1,7 @@
 package motionparallax;
 /**
  *
- * @author jetor
+ * 
  */
 
 import java.awt.event.*;
